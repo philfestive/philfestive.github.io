@@ -99,10 +99,10 @@
   --godot-blue: #478CBF;
   --godot-blue-light: #6BB6E7;
 
-  /* Neon Book Colors */
-  --neon-cyan: #00FFFF;
-  --neon-blue: #00D4FF;
-  --neon-deep: #0066FF;
+  /* Neon Book Colors (Godot Blue Theme) */
+  --neon-cyan: #6BB6E7;
+  --neon-blue: #478CBF;
+  --neon-deep: #3A7CA5;
   --neon-glow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-deep);
 }
 
@@ -297,141 +297,154 @@ body::before {
   }
 }
 
-/* ===== Neon Open Book Logo (Vegas Style) ===== */
+/* ===== Neon Open Book Logo (Toon World Pop-Up Style) ===== */
 .billboard-logo {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  padding: 24px 48px 60px 48px;
+  padding: 40px 60px 24px;
   margin-bottom: var(--space-xl);
 }
 
-/* Base page styles */
-.book-page {
+/* Container for all book flaps */
+.book-flaps {
   position: absolute;
   top: 0;
-  bottom: 48px;
-  width: 50%;
-  border: 3px solid var(--neon-cyan);
-  background: rgba(0, 10, 30, 0.95);
-  box-shadow:
-    0 0 5px var(--neon-cyan),
-    0 0 10px var(--neon-cyan),
-    0 0 20px var(--neon-blue),
-    0 0 40px var(--neon-deep),
-    inset 0 0 30px rgba(0, 255, 255, 0.05);
-  animation: neon-pulse 2s ease-in-out infinite;
-}
-
-/* Left page */
-.book-page-left {
   left: 0;
-  border-right: none;
-  border-radius: 12px 0 0 6px;
-  transform: perspective(500px) rotateY(6deg);
-  transform-origin: right center;
-  animation-delay: 0s;
-}
-
-/* Right page */
-.book-page-right {
   right: 0;
-  border-left: none;
-  border-radius: 0 12px 6px 0;
-  transform: perspective(500px) rotateY(-6deg);
-  transform-origin: left center;
-  animation-delay: 0.1s;
+  bottom: 0;
+  pointer-events: none;
 }
 
-/* Page lines (thickness indicators) */
-.page-line {
+/* Base flap styles - clean straight neon lines */
+.book-flap {
   position: absolute;
-  bottom: 20%;
-  left: 10%;
-  width: 80%;
-  height: 1px;
-  background: rgba(0, 255, 255, 0.3);
-  box-shadow: 0 0 4px rgba(0, 255, 255, 0.5);
-}
-
-.page-line:nth-child(2) {
-  bottom: calc(20% + 8px);
-}
-
-.page-line:nth-child(3) {
-  bottom: calc(20% + 16px);
-}
-
-/* Center content area */
-.book-content {
-  position: relative;
-  z-index: 1;
-  padding: 24px 32px;
-  background: rgba(0, 10, 30, 0.95);
-  border-radius: 4px;
-}
-
-/* Center crease */
-.book-crease {
-  position: absolute;
-  top: 10%;
-  bottom: calc(48px + 10%);
-  left: 50%;
-  width: 2px;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 255, 255, 0.4) 20%,
-    rgba(0, 255, 255, 0.4) 80%,
-    transparent 100%
-  );
-  z-index: 2;
-}
-
-/* Spine with Godot logo */
-.book-spine {
-  position: absolute;
-  bottom: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 48px;
-  background: rgba(0, 10, 30, 0.95);
-  border: 3px solid var(--neon-cyan);
-  border-radius: 0 0 8px 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 50%;
+  height: 70%;
+  width: 30px;
+  transform: translateY(-50%);
+  border: 2px solid var(--neon-cyan);
+  background: rgba(0, 10, 30, 0.6);
   box-shadow:
     0 0 5px var(--neon-cyan),
-    0 0 10px var(--neon-cyan),
-    0 0 20px var(--neon-blue),
-    0 0 40px var(--neon-deep);
+    0 0 10px var(--neon-blue),
+    0 0 20px var(--neon-deep);
   animation: neon-pulse 2s ease-in-out infinite;
-  animation-delay: 0.3s;
-  z-index: 3;
 }
 
-/* Godot logo in spine */
-.spine-logo {
-  width: 32px;
-  height: 32px;
+/* Left flaps - fold outward to the left */
+.flap-left {
+  transform-origin: right center;
+  border-right: none;
+}
+
+.flap-left.flap-1 {
+  left: 0;
+  transform: translateY(-50%) perspective(300px) rotateY(25deg);
+  animation-delay: 0s;
+  opacity: 0.5;
+}
+
+.flap-left.flap-2 {
+  left: 20px;
+  transform: translateY(-50%) perspective(300px) rotateY(18deg);
+  animation-delay: 0.1s;
+  opacity: 0.7;
+}
+
+.flap-left.flap-3 {
+  left: 40px;
+  transform: translateY(-50%) perspective(300px) rotateY(10deg);
+  animation-delay: 0.2s;
   opacity: 0.9;
+}
+
+/* Right flaps - fold outward to the right */
+.flap-right {
+  transform-origin: left center;
+  border-left: none;
+}
+
+.flap-right.flap-1 {
+  right: 0;
+  transform: translateY(-50%) perspective(300px) rotateY(-25deg);
+  animation-delay: 0s;
+  opacity: 0.5;
+}
+
+.flap-right.flap-2 {
+  right: 20px;
+  transform: translateY(-50%) perspective(300px) rotateY(-18deg);
+  animation-delay: 0.1s;
+  opacity: 0.7;
+}
+
+.flap-right.flap-3 {
+  right: 40px;
+  transform: translateY(-50%) perspective(300px) rotateY(-10deg);
+  animation-delay: 0.2s;
+  opacity: 0.9;
+}
+
+/* Radial glow behind the symbol */
+.symbol-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 255, 255, 0.4) 0%,
+    rgba(0, 212, 255, 0.2) 30%,
+    rgba(0, 102, 255, 0.1) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: glow-breathe 2s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes glow-breathe {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Central Godot symbol - the focal point */
+.central-symbol {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  z-index: 2;
   filter:
-    drop-shadow(0 0 8px var(--neon-cyan))
-    drop-shadow(0 0 16px var(--neon-blue));
+    drop-shadow(0 0 10px var(--neon-cyan))
+    drop-shadow(0 0 20px var(--neon-blue))
+    drop-shadow(0 0 40px var(--neon-deep));
+  animation: symbol-float 3s ease-in-out infinite;
+}
+
+@keyframes symbol-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 /* Logo text styling with neon glow */
 .billboard-logo .logo-text {
-  margin-bottom: 0;
+  margin: var(--space-md) 0 0 0;
   position: relative;
   z-index: 10;
-  text-shadow:
-    0 0 10px var(--neon-cyan),
-    0 0 20px var(--neon-cyan),
-    0 0 30px var(--neon-blue),
-    0 0 40px var(--neon-deep);
 }
 
 /* ===== Sections ===== */
@@ -700,29 +713,44 @@ body::before {
   .project-card { flex-direction: column; }
   .project-clip { width: 100%; height: 100px; }
   .billboard-logo {
-    padding: 20px 24px 50px;
+    padding: 30px 40px 20px;
   }
-  .book-content {
-    padding: 20px 24px;
+  .central-symbol {
+    width: 80px;
+    height: 80px;
   }
-  .book-spine {
-    width: 100px;
-    height: 40px;
+  .symbol-glow {
+    width: 140px;
+    height: 140px;
   }
-  .spine-logo {
-    width: 28px;
-    height: 28px;
+  .book-flap {
+    width: 20px;
+    height: 60%;
   }
-  .page-line {
-    display: none;
-  }
+  .flap-left.flap-1 { left: 0; }
+  .flap-left.flap-2 { left: 12px; }
+  .flap-left.flap-3 { left: 24px; }
+  .flap-right.flap-1 { right: 0; }
+  .flap-right.flap-2 { right: 12px; }
+  .flap-right.flap-3 { right: 24px; }
 }
 
 @media (max-width: 360px) {
   .container { padding: 20px 12px; }
   .logo-text { font-size: 28px; }
   .billboard-logo {
-    padding: 16px 16px 44px;
+    padding: 24px 30px 16px;
+  }
+  .central-symbol {
+    width: 64px;
+    height: 64px;
+  }
+  .symbol-glow {
+    width: 110px;
+    height: 110px;
+  }
+  .book-flap {
+    width: 16px;
   }
 }
 
@@ -744,10 +772,17 @@ body::before {
     transform: none;
   }
   .billboard-logo,
-  .book-page-left,
-  .book-page-right,
-  .book-spine {
+  .book-flap,
+  .symbol-glow,
+  .central-symbol {
     animation: none;
+  }
+  .symbol-glow {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  .central-symbol {
+    transform: none;
   }
   .link-button {
     transition: none;
