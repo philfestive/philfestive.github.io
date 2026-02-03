@@ -120,6 +120,13 @@
       --bg-surface-light: rgba(45, 27, 78, 0.4);
       --bg-surface-medium: rgba(45, 27, 78, 0.6);
       --bg-surface-solid: rgba(45, 27, 78, 0.85);
+
+      /* TBC Fel Theme Colors */
+      --tbc-fel-green: #7FFF00;
+      --tbc-fel-green-dark: #00FF66;
+      --tbc-purple: #9B30FF;
+      --tbc-purple-dark: #4B0082;
+      --tbc-bg: rgba(20, 10, 30, 0.9);
     }
 
     /* ===== Reset & Base ===== */
@@ -195,8 +202,9 @@
       width: var(--logo-size);
       height: var(--logo-size);
       margin-bottom: var(--space-lg);
-      animation: gentle-float var(--float-duration) ease-in-out infinite;
-      will-change: transform;
+      filter: drop-shadow(0 0 8px rgba(145, 70, 255, 0.4));
+      animation: card-entrance 0.5s ease backwards, gentle-float var(--float-duration) ease-in-out 0.5s infinite, glow-pulse 3s ease-in-out 0.5s infinite;
+      will-change: transform, filter;
     }
 
     .logo-text {
@@ -209,27 +217,32 @@
     .logo-phil {
       font-family: 'Oxanium', sans-serif;
       font-weight: 700;
-      background: linear-gradient(135deg, #FF6B9D 0%, #9146FF 100%);
+      background: linear-gradient(135deg, #FF6B9D 0%, #9146FF 50%, #FF6B9D 100%);
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       letter-spacing: 1px;
+      animation: card-entrance 0.5s ease 0.15s backwards, gradient-shift 4s ease infinite;
     }
 
     .logo-festive {
       background: linear-gradient(90deg,
-        #FF6B6B 0%, #FFA500 17%, #FFD93D 33%,
-        #6BCB77 50%, #4D96FF 67%, #9146FF 83%, #FF6B9D 100%
+        #FF6B6B 0%, #FFA500 14%, #FFD93D 28%,
+        #6BCB77 42%, #4D96FF 56%, #9146FF 70%, #FF6B9D 84%, #FF6B6B 100%
       );
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      animation: card-entrance 0.5s ease 0.25s backwards, gradient-shift 4s ease infinite;
     }
 
     .tagline {
       font-size: 16px;
       color: var(--color-text-muted);
       margin: 0;
+      animation: card-entrance 0.5s ease 0.35s backwards;
     }
 
     /* ===== Sections ===== */
@@ -458,6 +471,16 @@
       }
     }
 
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(145, 70, 255, 0.3)); }
+      50% { filter: drop-shadow(0 0 16px rgba(145, 70, 255, 0.6)); }
+    }
+
     /* ===== Responsive ===== */
     @media (max-width: 480px) {
       .logo-text { font-size: 32px; }
@@ -474,6 +497,14 @@
     /* ===== Reduced Motion ===== */
     @media (prefers-reduced-motion: reduce) {
       .logo-icon {
+        animation: none;
+        filter: drop-shadow(0 0 8px rgba(145, 70, 255, 0.4));
+      }
+      .logo-phil,
+      .logo-festive {
+        animation: none;
+      }
+      .tagline {
         animation: none;
       }
       .link-button {
@@ -515,6 +546,206 @@
         background: var(--bg-surface-solid);
       }
     }
+
+    /* ===== TBC Card Styles ===== */
+    .tbc-card {
+      background: var(--tbc-bg);
+      border: 2px solid transparent;
+      border-image: linear-gradient(135deg, var(--tbc-fel-green), var(--tbc-purple)) 1;
+      border-radius: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tbc-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(127, 255, 0, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .tbc-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .tbc-icon {
+      width: 40px;
+      height: 40px;
+      filter: drop-shadow(0 0 8px var(--tbc-fel-green));
+    }
+
+    .tbc-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(90deg, var(--tbc-fel-green), var(--tbc-fel-green-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(127, 255, 0, 0.5);
+    }
+
+    .tbc-subtitle {
+      font-size: var(--font-size-small);
+      color: var(--tbc-purple);
+      margin: 4px 0 0 0;
+    }
+
+    /* TBC Timeline */
+    @keyframes tbc-fel-pulse {
+      0%, 100% {
+        box-shadow: 0 0 8px var(--tbc-fel-green);
+        opacity: 1;
+      }
+      50% {
+        box-shadow: 0 0 16px var(--tbc-fel-green), 0 0 24px var(--tbc-fel-green);
+        opacity: 0.8;
+      }
+    }
+
+    .tbc-timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .tbc-timeline::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--tbc-fel-green), var(--tbc-purple));
+      box-shadow: 0 0 8px var(--tbc-fel-green);
+      animation: tbc-fel-pulse 2s ease-in-out infinite;
+    }
+
+    .tbc-phase {
+      position: relative;
+      padding: var(--space-md) 0;
+      padding-left: var(--space-lg);
+      margin-left: calc(-1 * var(--space-md));
+      padding-right: var(--space-md);
+      border-radius: 8px;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tbc-phase:hover {
+      transform: translateX(4px);
+      background: rgba(127, 255, 0, 0.05);
+      box-shadow: 0 0 12px rgba(127, 255, 0, 0.2);
+    }
+
+    .tbc-phase::before {
+      content: '';
+      position: absolute;
+      left: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--tbc-purple-dark);
+      border: 2px solid var(--tbc-purple);
+      box-shadow: 0 0 6px var(--tbc-purple);
+    }
+
+    .tbc-phase.released::before {
+      background: var(--tbc-fel-green);
+      border-color: var(--tbc-fel-green);
+      box-shadow: 0 0 10px var(--tbc-fel-green);
+      animation: tbc-fel-pulse 2s ease-in-out infinite;
+    }
+
+    .tbc-phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .tbc-phase-name {
+      font-size: var(--font-size-body);
+      font-weight: 600;
+      color: var(--tbc-fel-green);
+    }
+
+    .tbc-phase.released .tbc-phase-name {
+      color: var(--tbc-fel-green);
+    }
+
+    .tbc-phase-date {
+      font-size: var(--font-size-small);
+      color: var(--tbc-purple);
+      font-weight: 500;
+    }
+
+    .tbc-phase-content {
+      font-size: var(--font-size-small);
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+
+    /* TBC Responsive */
+    @media (max-width: 480px) {
+      .tbc-phase-header {
+        flex-direction: column;
+        gap: 2px;
+      }
+      .tbc-title {
+        font-size: 18px;
+      }
+    }
+
+    /* TBC Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      .tbc-timeline::before,
+      .tbc-phase.released::before {
+        animation: none;
+        box-shadow: none;
+      }
+      .tbc-phase::before {
+        box-shadow: none;
+      }
+      .tbc-phase {
+        transition: none;
+      }
+    }
+
+    /* Billboard-style coming soon sign */
+    .billboard-sign {
+      display: inline-block;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+      background-size: 200% 200%;
+      animation: billboard-shimmer 3s ease-in-out infinite;
+      color: #1A1A2E;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 8px 16px;
+      border-radius: 4px;
+      border: 3px solid #8B4513;
+      box-shadow:
+        0 4px 0 #5D3A1A,
+        0 6px 12px rgba(0, 0, 0, 0.3);
+      transform: rotate(-2deg);
+      margin-top: 8px;
+    }
+
+    @keyframes billboard-shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
   </style>
 </head>
 <body>
@@ -540,45 +771,91 @@
       <div class="section-box">
         <h2 class="section-header">What I'm Working On</h2>
 
-        <div class="project-card">
-          <div class="project-info">
-            <h3 class="project-title">WoW TBC Anniversary</h3>
-            <p class="project-desc">Guild Full Clear Journey</p>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 0%"></div>
+        <!-- TBC Anniversary Card -->
+        <div class="section-box tbc-card">
+          <div class="tbc-header">
+            <svg class="tbc-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="24" r="20" stroke="#7FFF00" stroke-width="2" fill="none"/>
+              <path d="M24 8 L24 40 M8 24 L40 24" stroke="#9B30FF" stroke-width="2"/>
+              <circle cx="24" cy="24" r="8" fill="#7FFF00" opacity="0.3"/>
+              <circle cx="24" cy="24" r="4" fill="#7FFF00"/>
+            </svg>
+            <div>
+              <h3 class="tbc-title">WoW TBC Anniversary</h3>
+              <p class="tbc-subtitle">Guild Full Clear Journey</p>
             </div>
-            <span class="progress-text">Coming Soon</span>
           </div>
-          <div class="project-clip">
-            <span class="clip-placeholder">Latest Clip Coming Soon</span>
+
+          <div class="tbc-timeline">
+            <div class="tbc-phase released">
+              <div class="tbc-phase-header">
+                <span class="tbc-phase-name">Pre-Patch</span>
+                <span class="tbc-phase-date">January 13, 2026</span>
+              </div>
+              <p class="tbc-phase-content">Leveling Updates, Draenei & Blood Elves, Jewelcrafting</p>
+            </div>
+
+            <div class="tbc-phase released">
+              <div class="tbc-phase-header">
+                <span class="tbc-phase-name">Phase 1</span>
+                <span class="tbc-phase-date">February 5, 2026</span>
+              </div>
+              <p class="tbc-phase-content">Level Cap, Dungeons, Heroics, Karazhan, Gruul's, Mag's, Outland</p>
+            </div>
+
+            <div class="tbc-phase">
+              <div class="tbc-phase-header">
+                <span class="tbc-phase-name">Phase 2</span>
+                <span class="tbc-phase-date">Spring</span>
+              </div>
+              <p class="tbc-phase-content">SSC, Tempest Keep, Profession Updates</p>
+            </div>
+
+            <div class="tbc-phase">
+              <div class="tbc-phase-header">
+                <span class="tbc-phase-name">Phase 3</span>
+                <span class="tbc-phase-date">Summer</span>
+              </div>
+              <p class="tbc-phase-content">Mount Hyjal, Black Temple</p>
+            </div>
+
+            <div class="tbc-phase">
+              <div class="tbc-phase-header">
+                <span class="tbc-phase-name">Phase 4</span>
+                <span class="tbc-phase-date">Autumn</span>
+              </div>
+              <p class="tbc-phase-content">Zul'Aman</p>
+            </div>
+
+            <div class="tbc-phase">
+              <div class="tbc-phase-header">
+                <span class="tbc-phase-name">Phase 5</span>
+                <span class="tbc-phase-date">Autumn</span>
+              </div>
+              <p class="tbc-phase-content">Magister's Terrace, Sunwell, Isle of Quel'Danas</p>
+            </div>
           </div>
         </div>
 
         <div class="project-card">
           <div class="project-info">
-            <h3 class="project-title">Cow RPG</h3>
+            <h3 class="project-title">🐄 Cow RPG 🐮</h3>
             <p class="project-desc">Cozy Godot Game Development</p>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 0%"></div>
-            </div>
-            <span class="progress-text">Coming Soon</span>
+            <span class="billboard-sign">🚧 COMING SOON 🚧</span>
           </div>
           <div class="project-clip">
-            <span class="clip-placeholder">Latest Clip Coming Soon</span>
+            <span class="clip-placeholder">🐄 Moo-ve along, nothing to see here yet! 🐄</span>
           </div>
         </div>
 
         <div class="project-card">
           <div class="project-info">
-            <h3 class="project-title">Elemental Math</h3>
+            <h3 class="project-title">🔥 Math with Elements ❄️</h3>
             <p class="project-desc">Educational Learning Game</p>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 0%"></div>
-            </div>
-            <span class="progress-text">Coming Soon</span>
+            <span class="billboard-sign">➕ COMING SOON ➖</span>
           </div>
           <div class="project-clip">
-            <span class="clip-placeholder">Latest Clip Coming Soon</span>
+            <span class="clip-placeholder">🌊 Still calculating... 🔥</span>
           </div>
         </div>
       </div>
