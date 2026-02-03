@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:sdlccorp.com)",
+      "WebFetch(domain:linktr.ee)",
+      "WebFetch(domain:www.tilipmandigital.com)",
+      "WebFetch(domain:aesthetics.fandom.com)",
+      "WebFetch(domain:www.jamesbreyes.com)",
+      "WebFetch(domain:www.color-hex.com)",
+      "WebFetch(domain:www.schemecolor.com)",
+      "WebFetch(domain:lospec.com)",
+      "WebFetch(domain:nostalgic-css.github.io)",
+      "WebFetch(domain:coolors.co)"
+    ]
+  }
+}
