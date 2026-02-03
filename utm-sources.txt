@@ -1,0 +1,34 @@
+UTM Source Reference
+====================
+
+Copy the Bio URL for each platform where you link to philfestive.github.io
+
+
+Social Platforms
+----------------
+Platform         Source Code    Bio URL
+--------         -----------    -------
+YouTube          yt_pf          https://philfestive.github.io/?utm_source=yt_pf&utm_medium=social
+Twitch           tw_pf          https://philfestive.github.io/?utm_source=tw_pf&utm_medium=social
+TikTok           tt_pf          https://philfestive.github.io/?utm_source=tt_pf&utm_medium=social
+Twitter/X        x_pf           https://philfestive.github.io/?utm_source=x_pf&utm_medium=social
+Bluesky          bs_pf          https://philfestive.github.io/?utm_source=bs_pf&utm_medium=social
+Instagram        ig_pf          https://philfestive.github.io/?utm_source=ig_pf&utm_medium=social
+Threads          th_pf          https://philfestive.github.io/?utm_source=th_pf&utm_medium=social
+
+
+Games & Dev
+-----------
+Platform         Source Code    Bio URL
+--------         -----------    -------
+itch.io          io_pf          https://philfestive.github.io/?utm_source=io_pf&utm_medium=games
+GitHub           gh_pf          https://philfestive.github.io/?utm_source=gh_pf&utm_medium=dev
+CurseForge       cf_pf          https://philfestive.github.io/?utm_source=cf_pf&utm_medium=addons
+
+
+Source Code Legend
+------------------
+yt = YouTube       tw = Twitch      tt = TikTok
+x  = Twitter/X     bs = Bluesky     ig = Instagram
+th = Threads       io = itch.io     gh = GitHub
+cf = CurseForge    pf = PhilFestive
