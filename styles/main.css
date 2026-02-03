@@ -94,6 +94,12 @@
   --tbc-purple: #9B30FF;
   --tbc-purple-dark: #4B0082;
   --tbc-bg: rgba(20, 10, 30, 0.9);
+
+  /* Neon Book Colors */
+  --neon-cyan: #00FFFF;
+  --neon-blue: #00D4FF;
+  --neon-deep: #0066FF;
+  --neon-glow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-deep);
 }
 
 /* ===== Reset & Base ===== */
@@ -190,6 +196,12 @@ body::before {
   color: rgba(145, 70, 255, 0.3);
   -webkit-text-stroke: 2px #9146FF;
   text-shadow:
+    /* White outline - multiple offsets for full coverage */
+    -1px -1px 0 rgba(255, 255, 255, 0.8),
+    1px -1px 0 rgba(255, 255, 255, 0.8),
+    -1px 1px 0 rgba(255, 255, 255, 0.8),
+    1px 1px 0 rgba(255, 255, 255, 0.8),
+    /* Existing 3D shadows */
     3px 3px 0 rgba(45, 27, 78, 0.8),
     6px 6px 0 rgba(30, 18, 52, 0.6);
   animation: card-entrance 0.5s ease 0.15s backwards;
@@ -221,6 +233,7 @@ body::before {
 }
 
 .logo-festive {
+  font-size: 1.15em;
   background: linear-gradient(90deg,
     #FF6B6B 0%, #FFA500 14%, #FFD93D 28%,
     #6BCB77 42%, #4D96FF 56%, #9146FF 70%, #FF6B9D 84%, #FF6B6B 100%
@@ -239,50 +252,80 @@ body::before {
   animation: card-entrance 0.5s ease 0.35s backwards;
 }
 
-/* ===== Billboard Logo Frame ===== */
+/* ===== Neon Open Book Logo ===== */
 .billboard-logo {
   display: inline-block;
   position: relative;
-  padding: 24px 32px;
+  padding: 32px 48px;
   margin-bottom: var(--space-xl);
 
-  /* Wooden frame effect */
-  background: linear-gradient(135deg,
-    rgba(45, 27, 78, 0.9) 0%,
-    rgba(30, 18, 52, 0.95) 100%
+  /* Dark book interior */
+  background: rgba(0, 10, 30, 0.85);
+
+  /* Book shape - wider at top, narrower at bottom spine */
+  clip-path: polygon(
+    5% 0%,      /* top-left corner curves in */
+    95% 0%,     /* top-right corner curves in */
+    100% 8%,    /* right page edge top */
+    100% 92%,   /* right page edge bottom */
+    95% 100%,   /* bottom-right to spine */
+    5% 100%,    /* bottom-left to spine */
+    0% 92%,     /* left page edge bottom */
+    0% 8%       /* left page edge top */
   );
-  border: 4px solid #8B4513;
-  border-radius: 12px;
-  box-shadow:
-    inset 0 0 20px rgba(145, 70, 255, 0.2),
-    0 6px 0 #5D3A1A,
-    0 8px 20px rgba(0, 0, 0, 0.4);
 
-  /* Subtle inner border for depth */
-  outline: 2px solid rgba(255, 215, 0, 0.3);
-  outline-offset: -8px;
+  /* Neon border glow */
+  border: 2px solid var(--neon-cyan);
+  box-shadow: var(--neon-glow);
+
+  /* Glow animation */
+  animation: neon-pulse 2s ease-in-out infinite;
 }
 
-/* Corner decorations (nails/rivets) */
-.billboard-logo::before,
-.billboard-logo::after {
-  content: '\25CF';
+/* Center spine line */
+.billboard-logo::before {
+  content: '';
   position: absolute;
-  color: #B8860B;
-  font-size: 8px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background: var(--neon-cyan);
+  box-shadow: var(--neon-glow);
+  border-radius: 2px;
 }
-.billboard-logo::before { top: 8px; left: 12px; }
-.billboard-logo::after { top: 8px; right: 12px; }
 
-/* Adjust logo icon margin when inside billboard */
+/* Page fold line (subtle center crease) */
+.billboard-logo::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 70%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 255, 255, 0.3) 20%,
+    rgba(0, 255, 255, 0.3) 80%,
+    transparent 100%
+  );
+}
+
+/* Adjust logo icon when inside neon book */
 .billboard-logo .logo-icon {
   margin-bottom: var(--space-md);
+  /* Icon gets subtle cyan tint */
+  filter: drop-shadow(0 0 8px var(--neon-cyan));
 }
 
-/* Adjust logo text margin when inside billboard */
+/* Adjust logo text when inside neon book */
 .billboard-logo .logo-text {
   margin-bottom: 0;
+  /* Text shadow enhanced with neon */
+  text-shadow: 0 0 10px var(--neon-cyan);
 }
 
 /* ===== Sections ===== */
@@ -530,6 +573,21 @@ body::before {
   50% { filter: drop-shadow(0 0 16px rgba(145, 70, 255, 0.6)); }
 }
 
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: var(--neon-glow);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 0 8px var(--neon-cyan),
+      0 0 16px var(--neon-cyan),
+      0 0 32px var(--neon-blue),
+      0 0 64px var(--neon-deep);
+    filter: brightness(1.1);
+  }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 480px) {
   .logo-text { font-size: 32px; }
@@ -537,8 +595,7 @@ body::before {
   .project-card { flex-direction: column; }
   .project-clip { width: 100%; height: 100px; }
   .billboard-logo {
-    padding: 16px 20px;
-    border-width: 3px;
+    padding: 24px 32px;
   }
 }
 
@@ -559,6 +616,9 @@ body::before {
     animation: none;
   }
   .tagline {
+    animation: none;
+  }
+  .billboard-logo {
     animation: none;
   }
   .link-button {
