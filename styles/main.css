@@ -196,14 +196,18 @@ body::before {
   color: rgba(145, 70, 255, 0.3);
   -webkit-text-stroke: 2px #9146FF;
   text-shadow:
-    /* White outline - multiple offsets for full coverage */
-    -1px -1px 0 rgba(255, 255, 255, 0.8),
-    1px -1px 0 rgba(255, 255, 255, 0.8),
-    -1px 1px 0 rgba(255, 255, 255, 0.8),
-    1px 1px 0 rgba(255, 255, 255, 0.8),
+    /* White outline - larger offsets for visibility */
+    -2px -2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px 2px 0 #fff,
+    2px 2px 0 #fff,
+    0 -2px 0 #fff,
+    0 2px 0 #fff,
+    -2px 0 0 #fff,
+    2px 0 0 #fff,
     /* Existing 3D shadows */
-    3px 3px 0 rgba(45, 27, 78, 0.8),
-    6px 6px 0 rgba(30, 18, 52, 0.6);
+    4px 4px 0 rgba(45, 27, 78, 0.8),
+    7px 7px 0 rgba(30, 18, 52, 0.6);
   animation: card-entrance 0.5s ease 0.15s backwards;
 }
 
